@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Model.Entities.Land">
+    <Position X="1.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAABAAABAAAAABADAAQAEAAAAAAAAQ=</HashCode>
+      <FileName>Entities\Land.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Property Name="staden" />
+      <Property Name="Talen" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="Model.Entities.Stad">
+    <Position X="5" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAIAAAAAAAAAAABAAAQAAAAAAQAAAAAAIAAAA=</HashCode>
+      <FileName>Entities\Stad.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="land" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="Model.Entities.Taal">
+    <Position X="1.5" Y="4" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAQAAAAAAAAAAAAAAAABgAAgAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Entities\Taal.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Property Name="Landen" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
