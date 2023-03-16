@@ -75,14 +75,11 @@ public class EFTestContext : DbContext
             .Property(s => s.IsoLandCode)
             .HasMaxLength(2);
 
-        modelBuilder
-           .Entity<Land>()
-           .HasMany(l => l.Talen)
-           .WithMany(l => l.Landen);
+        
 
-    
+
         // Seeding
-        #region landData
+          #region landData
         modelBuilder.Entity<Land>().HasData(
             
             new Land { ISOLandCode = "AT" , NISLandCode = "105" , Naam = "Oostenrijk" , 
@@ -255,8 +252,25 @@ public class EFTestContext : DbContext
             );
 
         #endregion
-        
-        
+
+
+
+        modelBuilder
+        .Entity<Land>()
+        .HasMany(l => l.Talen)
+        .WithMany(l => l.Landen)
+        .UsingEntity(j => j.HasData(
+
+            new { LandenISOLandCode = "BE", TalenISOTaalCode = "de" },
+            new { LandenISOLandCode = "DE", TalenISOTaalCode = "de" },
+            new { LandenISOLandCode = "LU", TalenISOTaalCode = "de" },
+            new { LandenISOLandCode = "BE", TalenISOTaalCode = "fr" },
+            new { LandenISOLandCode = "FR", TalenISOTaalCode = "fr" },
+            new { LandenISOLandCode = "LU", TalenISOTaalCode = "fr" },
+            new { LandenISOLandCode = "BE", TalenISOTaalCode = "nl" },
+            new { LandenISOLandCode = "NL", TalenISOTaalCode = "nl" }
+
+            ));
 
     }
 

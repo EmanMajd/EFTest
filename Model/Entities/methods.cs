@@ -19,6 +19,9 @@ public class Methods
     }
     public void LijstLAnden()
     {
+        Console.WriteLine("----------------------");
+        Console.WriteLine("Lijst van Landen");
+        Console.WriteLine("----------------------");
         var query = from land in context.Landen
                     orderby land.Naam
                     select land;
@@ -27,35 +30,44 @@ public class Methods
             Console.WriteLine("{0,-30}{1,-30}{2,-30}{3}",
                 land.ISOLandCode, land.Naam, land.AantalInwoners, land.Oppervlakte);
         
+       
+    }
+
+    public string GeefLandCode()
+    {
         Console.Write("\n\n\t\t Geef een land code in : ");
         var landcode = Console.ReadLine();
         if (landcode != null)
         {
-            kizeLand(landcode);
+            NaamVanLand(landcode);
+            return landcode;
         }
         else
             Console.WriteLine("\nGeef een code uit de lijst van landen");
+        return "\nGeef een code uit de lijst van landen";
     }
 
-    public string kizeLand(string landcode)
+    public string NaamVanLand(string landcode)
     {
 
-        var gekozenLand = context.Landen.FirstOrDefault(l => l.ISOLandCode== landcode);
+        var gekozenLand = context.Landen.FirstOrDefault(l => l.ISOLandCode == landcode);
         string landNaam;
-        if (gekozenLand != null)
+       
+        if(gekozenLand != null)
         {
             landNaam = gekozenLand.Naam;
             return landNaam;
 
         }
-        else
-        {
-            Console.WriteLine("Kies een letter");
-            return "Er is geen land met dit code , kies uit het lijst";
+
+            GeefLandCode();
+            Console.WriteLine("Er is geen land met dit code , kies uit het lijst");
+            return "";
+            
         }
+        
 
-
-    }
+    
 
     public void ListStaden(string landNaam)
     {
@@ -66,10 +78,14 @@ public class Methods
             Console.WriteLine("----------------------");
             Console.WriteLine("Lijst van Steden");
             Console.WriteLine("----------------------");
-
+        if (Land.staden.Count > 0)
+        {
             foreach (var stad in Land.staden)
                 Console.WriteLine(stad.Naam);
-            
+        }
+        else
+            Console.WriteLine("");
+
     }
 
     public void ListTalen(string landNaam)
@@ -81,9 +97,11 @@ public class Methods
         Console.WriteLine("----------------------");
         Console.WriteLine("Lijst van Talen");
         Console.WriteLine("----------------------");
-
-        foreach (var taal in Land.Talen)
-            Console.WriteLine(taal.NaamTaal);
+        if (Land.Talen.Count > 0) { 
+            foreach (var taal in Land.Talen)
+                Console.WriteLine(taal.NaamTaal);
+        }
+        Console.WriteLine("");
 
     }
 
@@ -94,19 +112,25 @@ public class Methods
         Console.WriteLine("\t\tAantal inwoners:  {0}", Land.AantalInwoners);
         Console.WriteLine("\t\tOppervlakte:  {0}", Land.Oppervlakte);
 
-        Console.Write("Wijzig aantal inwoners (<Enter> = niet wijzegen) : ");
-        int inwoners = int.Parse(Console.ReadLine());
-        Console.Write("Wijzig oppervlakte (<Enter> = niet wijzegen) : ");
-        float oppervlakte = float.Parse(Console.ReadLine());
-
-        if(inwoners != 0 && oppervlakte != 0)
+        try
         {
-            Land.AantalInwoners = inwoners;
-            Land.Oppervlakte = oppervlakte;
+            Console.Write("Wijzig aantal inwoners (<Enter> = niet wijzegen) : ");
 
-            context.SaveChanges();
+            int inwoners = int.Parse(Console.ReadLine());
+            Console.Write("Wijzig oppervlakte (<Enter> = niet wijzegen) : ");
+            float oppervlakte = float.Parse(Console.ReadLine());
+
+            if (inwoners != 0 && oppervlakte != 0)
+            {
+                Land.AantalInwoners = inwoners;
+                Land.Oppervlakte = oppervlakte;
+
+                context.SaveChanges();
+            }
+
         }
-
+        catch (Exception ex) { Console.WriteLine(ex.Message); }
+        
     }
 
     public void StadToevoegen(string landNaam)
@@ -132,10 +156,13 @@ public class Methods
         int index = 0;
         if (staden.Count > 0)
         {
+            index++;
             foreach (var stad in staden)
             {
-                Console.WriteLine("{0,-10} {1}", ++index, stad.Naam);
+                Console.WriteLine("{0,-10} {1}", index, stad.Naam);
+                index++;
             }
+            index= 0;
             Console.WriteLine("\n Geef het volgnummer uit de lijst ");
             if (int.TryParse(Console.ReadLine(), out int volgnummer))
             {

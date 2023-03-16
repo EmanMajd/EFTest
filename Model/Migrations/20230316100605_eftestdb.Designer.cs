@@ -11,8 +11,8 @@ using Model.Entities;
 namespace Model.Migrations
 {
     [DbContext(typeof(EFTestContext))]
-    [Migration("20230315090156_seeding")]
-    partial class seeding
+    [Migration("20230316100605_eftestdb")]
+    partial class eftestdb
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
